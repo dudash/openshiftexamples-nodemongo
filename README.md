@@ -10,4 +10,6 @@ This example simply opens a conection to a mongoDB and then creates a websever. 
       
 A good reference for playing around with OpenShift and extending this code can be found by following [this link][1]
 
+Note: this repo contains a Dockerfile, but it is not needed for OpenShift deployments because S2I handles all that for you.
+
 [1]: http://training.runcloudrun.com/roadshow/07-databases.md.html
