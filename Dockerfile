@@ -1,4 +1,4 @@
-# NOTE: this is not the default way to build CandV and
+# NOTE: this is not the default way to build and
 # might possibly be out of date with the latest branch.
 # The preferred way to build the container images is to
 # utilize s2i via Open Shift.
