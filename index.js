@@ -65,6 +65,9 @@ app.get('/', function(req, res) {
      respHTML += '<div class="alert alert-danger" role="alert">ERROR, could not connect to DB</div><br/>';
      respHTML += '</body></html>'; 
      res.send(respHTML); return;
+   } else {
+     respHTML += '<p><span class="label label-success">DB Service:'+dbip+'</span></p>';
+     respHTML += '</div>';
    }
 
    // store this info
