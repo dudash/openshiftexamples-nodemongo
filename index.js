@@ -64,8 +64,8 @@ app.get('/', function(req, res) {
    respHTML += '<p><span class="label label-info">requesting IP:'+requestip+'</span></p>'
    respHTML += '<p><span class="label label-primary">my IP(s):'+addresses+'</span></p>';
    if (!mongoCreatedCollections) { 
-     respHTML += '</div>';
      respHTML += '<p><span class="label label-danger">DB Service:'+dbip+'</span></p></div>';
+     respHTML += '</div>';
      respHTML += '<div class="alert alert-danger" role="alert">ERROR, could not connect to DB</div><br/>';
      respHTML += '</body></html>'; 
      res.send(respHTML); return;
