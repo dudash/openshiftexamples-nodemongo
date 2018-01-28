@@ -28,6 +28,7 @@
   "license": "Apache 2.0",
   "dependencies": {
     "express": "*",
-    "mongodb": "*"
+    "mongodb": "*",
+    "util": "*"
   }
 }

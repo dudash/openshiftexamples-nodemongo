@@ -1,5 +1,6 @@
 // setup database connection
 var MongoClient = require('mongodb').MongoClient;
+const f = require('util').format;
 var user = process.env.MONGODB_USER || 'dummy';
 var pass = process.env.MONGODB_PASSWORD || 'dummy';
 var dbip = process.env.MONGODB_SERVICE_HOST || 'db.local';
@@ -7,9 +8,12 @@ var dbip = process.env.MONGODB_SERVICE_HOST || 'db.local';
 var dbport = process.env.MONGODB_SERVICE_PORT || 27017;
 var dbcoll = process.env.MONGODB_DATABASE || 'sampledb';
 var db = null;
-var url = 'mongodb://'+user+':'+pass+'@'+dbip+':'+dbport;
-// uncomment to use without authentication
-//var url = 'mongodb://'+dbip+':'+dbport+'/'+dbcoll
+const user = encodeURIComponent(user);
+const password = encodeURIComponent(pass);
+const authMechanism = 'DEFAULT';
+const url = f('mongodb://%s:%s@'+dbip+':'+dbport+'?authMechanism=%s',user, pass, authMechanism);
+// comment above and uncomment below to use without authentication
+//const var url = 'mongodb://'+dbip+':'+dbport;
 
 var mongoCreatedCollections = false;
 var initMongo = function(errcallback) {
@@ -60,9 +64,13 @@ app.get('/', function(req, res) {
    respHTML += '<p><span class="label label-info">requesting IP:'+requestip+'</span></p>'
    respHTML += '<p><span class="label label-primary">my IP(s):'+addresses+'</span></p></div>';
    if (!mongoCreatedCollections) { 
+     respHTML += '<p><span class="label label-danger">DB Service:'+dbip+'</span></p></div>';
      respHTML += '<div class="alert alert-danger" role="alert">ERROR, could not connect to DB</div><br/>';
      respHTML += '</body></html>'; 
      res.send(respHTML); return;
+   }
+   else {
+     respHTML += '<p><span class="label label-success">DB Service:'+dbip+'</span></p></div>';
    }
 
    // store this info
@@ -89,7 +97,7 @@ app.get('/', function(req, res) {
 });
 
 // setup MongoDB
-initMongo(function(err){ console.log('Couldnt connent to mongoDB: ' +err); });
+initMongo(function(err){ console.log('Couldnt connect to mongoDB: ' +err); });
 
 // start listening for client connections
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
