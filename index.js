@@ -11,7 +11,7 @@ var db = null;
 user = encodeURIComponent(user);
 pass = encodeURIComponent(pass);
 const authMechanism = 'DEFAULT';
-const url = f('mongodb://%s:%s@'+dbip+':'+dbport+'?authMechanism=%s',user, pass, authMechanism);
+const url = f('mongodb://%s:%s@'+dbip+':'+dbport+'/?authMechanism=%s',user, pass, authMechanism);
 // comment above and uncomment below to use without authentication
 //const var url = 'mongodb://'+dbip+':'+dbport;
 
@@ -62,15 +62,17 @@ app.get('/', function(req, res) {
    respHTML += '<body><div class="container-fluid">';
    respHTML += '<div class="jumbotron"><h1>Hello Node + Mongo<h1>';
    respHTML += '<p><span class="label label-info">requesting IP:'+requestip+'</span></p>'
-   respHTML += '<p><span class="label label-primary">my IP(s):'+addresses+'</span></p></div>';
+   respHTML += '<p><span class="label label-primary">my IP(s):'+addresses+'</span></p>';
    if (!mongoCreatedCollections) { 
+     respHTML += '</div>';
      respHTML += '<p><span class="label label-danger">DB Service:'+dbip+'</span></p></div>';
      respHTML += '<div class="alert alert-danger" role="alert">ERROR, could not connect to DB</div><br/>';
      respHTML += '</body></html>'; 
      res.send(respHTML); return;
    }
    else {
-     respHTML += '<p><span class="label label-success">DB Service:'+dbip+'</span></p></div>';
+     respHTML += '<p><span class="label label-success">DB Service:'+dbip+'</span></p>';
+     respHTML += '</div>';
    }
 
    // store this info
