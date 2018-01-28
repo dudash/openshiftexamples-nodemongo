@@ -7,20 +7,20 @@ var dbip = process.env.MONGODB_SERVICE_HOST || 'db.local';
 var dbport = process.env.MONGODB_SERVICE_PORT || 27017;
 var dbcoll = process.env.MONGODB_DATABASE || 'sampledb';
 var db = null;
-var url = 'mongodb://'+user+':'+pass+'@'+dbip+':'+dbport+'/'+dbcoll;
+var url = 'mongodb://'+user+':'+pass+'@'+dbip+':'+dbport;
 // uncomment to use without authentication
 //var url = 'mongodb://'+dbip+':'+dbport+'/'+dbcoll
 
 var mongoCreatedCollections = false;
 var initMongo = function(errcallback) {
    console.log('attempting mongoDB connection to ' + url);
-   MongoClient.connect(url, function(err, mydb) {
+   MongoClient.connect(url, function(err, client) {
       if (err) {
          console.log('unable to connect to mongo database -' + err);
          errcallback(err);
          return;
       } else {
-         db = mydb;
+         db = client.db(dbcoll);
          console.log('connected to mongo database...');
          mongoCreatedCollections = true;
       }
