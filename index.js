@@ -8,8 +8,8 @@ var dbip = process.env.MONGODB_SERVICE_HOST || 'db.local';
 var dbport = process.env.MONGODB_SERVICE_PORT || 27017;
 var dbcoll = process.env.MONGODB_DATABASE || 'sampledb';
 var db = null;
-const user = encodeURIComponent(user);
-const password = encodeURIComponent(pass);
+user = encodeURIComponent(user);
+pass = encodeURIComponent(pass);
 const authMechanism = 'DEFAULT';
 const url = f('mongodb://%s:%s@'+dbip+':'+dbport+'?authMechanism=%s',user, pass, authMechanism);
 // comment above and uncomment below to use without authentication
