@@ -28,6 +28,6 @@
   "license": "Apache 2.0",
   "dependencies": {
     "express": "*",
-    "mongodb": "*"
+    "mongodb": "~2.2.34"
   }
 }
