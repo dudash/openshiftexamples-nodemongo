@@ -58,11 +58,16 @@ app.get('/', function(req, res) {
    respHTML += '<body><div class="container-fluid">';
    respHTML += '<div class="jumbotron"><h1>Hello Node + Mongo<h1>';
    respHTML += '<p><span class="label label-info">requesting IP:'+requestip+'</span></p>'
-   respHTML += '<p><span class="label label-primary">my IP(s):'+addresses+'</span></p></div>';
+   respHTML += '<p><span class="label label-primary">my IP(s):'+addresses+'</span></p>';
    if (!mongoCreatedCollections) { 
+     respHTML += '<p><span class="label label-danger">DB Service:'+dbip+'</span></p></div>';
+     respHTML += '</div>';
      respHTML += '<div class="alert alert-danger" role="alert">ERROR, could not connect to DB</div><br/>';
      respHTML += '</body></html>'; 
      res.send(respHTML); return;
+   } else {
+     respHTML += '<p><span class="label label-success">DB Service:'+dbip+'</span></p>';
+     respHTML += '</div>';
    }
 
    // store this info
@@ -89,7 +94,7 @@ app.get('/', function(req, res) {
 });
 
 // setup MongoDB
-initMongo(function(err){ console.log('Couldnt connent to mongoDB: ' +err); });
+initMongo(function(err){ console.log('Couldnt connect to mongoDB: ' +err); });
 
 // start listening for client connections
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
